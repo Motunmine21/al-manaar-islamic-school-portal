@@ -30,7 +30,7 @@ const About = () => {
           <img
             src={schoolLogo}
             alt="School Logo"
-            className="h-32 w-32 md:h-40 md:w-40 mb-8"
+            className="h-40 w-35 md:h-43 md:w-40 mb-10"
           />
 
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">

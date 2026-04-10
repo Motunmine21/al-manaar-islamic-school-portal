@@ -9,8 +9,10 @@ module.exports = {
     extend: {
       colors: {
         'deep-wine': '#4B0C2B',
-        'ash-white': '#F5F5F5',    
-        'navy-blue': '#001F54',    
+        'navy-dark' :'#00153A',    
+        'navy-blue': '#001F54', 
+        'gold'   :'#F4C430',
+        'gold-light':'#FFF3B0',
       },
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],
