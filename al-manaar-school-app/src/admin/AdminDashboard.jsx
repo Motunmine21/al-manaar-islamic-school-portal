@@ -1,6 +1,7 @@
-function AdminDashboard () {
-    return (
-        <h1>Admin Dashboard page</h1>
-    );
+export default function AdminDashboard() {
+  return (
+    <div>
+      <h1 className="text-xl font-bold">Dashboard</h1>
+    </div>
+  );
 }
-export default AdminDashboard;
