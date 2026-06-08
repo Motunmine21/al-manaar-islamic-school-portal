@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth"; // 👈 ADD THIS
 
-//  environment variables for security
+// environment variables
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -16,12 +17,17 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Analytics safely
-isSupported().then((yes) => {
-  if (yes) {
-    getAnalytics(app);
-  }
-});
+// ✅ Analytics only in production (better practice)
+if (import.meta.env.PROD) {
+  isSupported().then((yes) => {
+    if (yes) {
+      getAnalytics(app);
+    }
+  });
+}
 
-// Initialize Firestore
+// ✅ Firestore
 export const db = getFirestore(app);
+
+// ✅ Auth (NEW)
+export const auth = getAuth(app);
