@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { db } from "../firebase/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { FaFacebook } from "react-icons/fa";
+import schoolLogo from "../assets/schoolLogo.png";
+import { Link } from "react-router-dom";
 
 const Admissions = () => {
   const [formData, setFormData] = useState({
@@ -58,8 +61,8 @@ const Admissions = () => {
 
       {/* HERO SECTION */}
       <section className="relative bg-[#08172C] text-yellow-400 py-20 px-6 md:px-16 text-center overflow-hidden">
-        <img
-          src="/src/assets/schoolLogo.png"
+       <img
+          src={schoolLogo}
           alt="background logo"
           className="absolute opacity-5 w-[300px] md:w-[400px] lg:w-[500px] right-10 top-10 pointer-events-none"
         />
@@ -179,14 +182,21 @@ const Admissions = () => {
           </div>
 
           {/* Submit */}
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-[#08172C] text-yellow-400 px-8 py-3 rounded-full font-semibold disabled:opacity-50"
-            >
-              {loading ? "Submitting..." : "Submit Application"}
-            </button>
+          <div className="flex flex-col items-center gap-4">
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-[#08172C] text-yellow-400 px-8 py-3 rounded-full font-semibold disabled:opacity-50"
+              >
+                {loading ? "Submitting..." : "Submit Application"}
+              </button>
+
+              <Link
+                to="/announcements"
+                className="bg-[#08172C] text-yellow-400 px-8 py-3 rounded-full font-semibold text-center hover:opacity-90 transition"
+              >
+                📢 View Latest Announcements
+              </Link>
           </div>
         </form>
       </section>
@@ -196,7 +206,20 @@ const Admissions = () => {
          <p>16, New Jerusalem street, Off Alhaji Olaniyan avenue, Olaoluwa bus stop, Ikola, Alaso.</p> 
          <p>09033435812 | 08087288739 | 07073852187</p> <p>almanaartahfeez@gmail.com</p> 
          <p className="mt-2 text-sm">&copy; {new Date().getFullYear()} Al-Manaar Tahfeez Schools</p> 
+
+          <div className="mt-4 flex justify-center">
+                  <a
+                    href="https://facebook.com/SchoolPage"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-gold hover:text-white transition"
+                  >
+                    <FaFacebook size={29} />
+                    <span>Facebook (coming soon)</span>
+                  </a>
+          </div>
       </footer>
+      
     </div>
   );
 };

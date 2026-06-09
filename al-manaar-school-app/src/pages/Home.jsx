@@ -5,6 +5,7 @@ import schoolLogo from "../assets/schoolLogo.png";
 import image1 from "../assets/image1.png";
 import image2 from "../assets/image2.png";
 import image3 from "../assets/image3.png";
+import { FaFacebook } from "react-icons/fa";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,7 @@ const Home = () => {
     <div className="bg-gold-light min-h-screen flex flex-col">
 
       {/* ================= NAVBAR ================= */}
-      <nav className="bg-navy-blue text-white px-6 py-4 flex justify-between items-center relative">
+      <nav className="bg-navy-dark text-white px-6 py-4 flex justify-between items-center relative">
         
         <div className="flex items-center gap-3">
           <img src={schoolLogo} alt="School Logo" className="h-12 w-12 object-contain" />
@@ -144,7 +145,7 @@ const Home = () => {
       </section>
 
       {/* ================= FOOTER ================= */}
-      <footer className="bg-navy-blue text-white py-10 mt-auto text-center">
+      <footer className="bg-navy-dark text-white py-10 mt-auto text-center">
       
         <div className="text-center flex flex-col gap-3 px-6">
           <span>16, New Jerusalem street, Off Alhaji Olaniyan avenue, Ikola, Alaso.</span>
@@ -154,6 +155,18 @@ const Home = () => {
             &copy; {new Date().getFullYear()} Al-Manaar Tahfeez Schools. All rights reserved.
           </span>
         </div>
+
+        <div className="mt-4 flex justify-center">
+                <a
+                  href="https://facebook.com/SchoolPage"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-gold hover:text-white transition"
+                >
+                  <FaFacebook size={29} />
+                  <span>Facebook (coming soon)</span>
+                </a>
+         </div>
       </footer>
 
     </div>

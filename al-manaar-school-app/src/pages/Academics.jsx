@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import schoolLogo from "../assets/schoolLogo.png";
+import { FaFacebook } from "react-icons/fa";
 
 const Academics = () => {
   const nurserySubjects = [
@@ -127,6 +128,17 @@ const Academics = () => {
             &copy; {new Date().getFullYear()} Al-Manaar Tahfeez Schools. All rights reserved.
           </span>
         </div>
+          <div className="mt-4 flex justify-center">
+                  <a
+                    href="https://facebook.com/SchoolPage"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-gold hover:text-white transition"
+                  >
+                    <FaFacebook size={29} />
+                    <span>Facebook (coming soon)</span>
+                  </a>
+          </div>
       </footer>
 
     </div>

@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import schoolLogo from "../assets/schoolLogo.png";
 import image1 from "../assets/image1.png";
+import { FaFacebook } from "react-icons/fa";
 
 const About = () => {
   const visionPoints = [
@@ -48,7 +49,7 @@ const About = () => {
 
           <Link
             to="/academics"
-            className="bg-amber-800 text-white px-10 py-4 rounded-full text-lg font-semibold
+            className="bg-[#5C0F0F] text-white px-10 py-4 rounded-full text-lg font-semibold
                        hover:bg-yellow-400 hover:text-amber-900
                        transition-all duration-300 hover:-translate-y-1 shadow-lg"
           >
@@ -99,20 +100,31 @@ const About = () => {
       </section>
 
       {/* ================= FOOTER ================= */}
-      <footer className="bg-amber-900 text-white py-10 w-full mt-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 gap-6">
-          {/* Logo */}
-          <img
-            src={schoolLogo}
-            alt="School Logo"
-            className="h-14 w-14"
-          />
+      <footer className="bg-[#5C0F0F] text-white py-10 w-full mt-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 gap-6">
+            {/* Logo */}
+            <img
+              src={schoolLogo}
+              alt="School Logo"
+              className="h-14 w-14"
+            />
 
-          {/* Copyright */}
-          <p className="text-center md:text-left text-base md:text-lg">
-            &copy; {new Date().getFullYear()} Al-Manaar Tahfeez School. All Rights Reserved.
-          </p>
-        </div>
+            {/* Copyright */}
+            <p className="text-center md:text-left text-base md:text-lg">
+              &copy; {new Date().getFullYear()} Al-Manaar Tahfeez School. All Rights Reserved.
+            </p>
+          </div>
+            <div className="mt-4 flex justify-center">
+                    <a
+                      href="https://facebook.com/SchoolPage"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-gold hover:text-white transition"
+                    >
+                      <FaFacebook size={29} />
+                      <span>Facebook (coming soon)</span>
+                    </a>
+              </div>
       </footer>
 
     </div>
