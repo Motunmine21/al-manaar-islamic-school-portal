@@ -45,23 +45,72 @@ const Home = () => {
         </div>
 
         {isOpen && (
-          <div className="fixed inset-0 bg-navy-blue flex flex-col items-center gap-6 pt-28 md:hidden z-50">
-            <Link to="/" onClick={() => setIsOpen(false)} className="hover:text-gold">Home</Link>
-            <Link to="/about" onClick={() => setIsOpen(false)} className="hover:text-gold">About</Link>
-            <Link to="/academics" onClick={() => setIsOpen(false)} className="hover:text-gold">Academics</Link>
-            <Link to="/admissions" onClick={() => setIsOpen(false)} className="hover:text-gold">Admissions</Link>
-            <Link to="/announcements" onClick={() => setIsOpen(false)} className="hover:text-gold">Announcements</Link>
 
-            <Link
-              to="/admissions"
+          <div className="fixed inset-0 bg-navy-blue text-white flex flex-col md:hidden z-50">
+            {/* Close Button */}
+            <button
               onClick={() => setIsOpen(false)}
-              className="bg-gold text-navy-blue px-6 py-2 rounded-full font-semibold hover:bg-yellow-300"
+              className="absolute top-6 right-6 text-4xl hover:text-gold transition"
             >
-              Apply Now
-            </Link>
-          </div>
-        )}
-      </nav>
+              ✕
+            </button>
+
+
+        {/* Mobile Menu */}
+            <div className="flex flex-col items-center justify-center flex-1 gap-8 text-xl font-medium">
+              <Link
+                to="/"
+                onClick={() => setIsOpen(false)}
+                className="hover:text-gold transition"
+              >
+                Home
+              </Link>
+
+              <Link
+                to="/about"
+                onClick={() => setIsOpen(false)}
+                className="hover:text-gold transition"
+              >
+                About
+              </Link>
+
+              <Link
+                to="/academics"
+                onClick={() => setIsOpen(false)}
+                className="hover:text-gold transition"
+              >
+                Academics
+              </Link>
+
+              <Link
+                to="/admissions"
+                onClick={() => setIsOpen(false)}
+                className="hover:text-gold transition"
+              >
+                Admissions
+              </Link>
+
+              <Link
+                to="/announcements"
+                onClick={() => setIsOpen(false)}
+                className="hover:text-gold transition"
+              >
+                Announcements
+              </Link>
+
+              <Link
+                to="/admissions"
+                onClick={() => setIsOpen(false)}
+                className="mt-4 bg-gold text-navy-blue px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition"
+              >
+                Apply Now
+              </Link>
+            </div>
+
+
+  </div>
+)}
+    </nav>
 
       {/* ================= HERO SECTION ================= */}
       <section className="relative px-6 md:px-16 py-20 grid md:grid-cols-2 gap-12 items-center bg-navy-blue overflow-hidden">
