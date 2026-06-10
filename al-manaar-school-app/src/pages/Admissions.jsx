@@ -152,14 +152,24 @@ const Admissions = () => {
                 <option value="Female">Female</option>
               </select>
 
-              <input
-                type="date"
-                name="dateOfBirth"
-                value={formData.dateOfBirth}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border rounded-lg"
-              />
+              <div className="flex flex-col">
+                <label
+                  htmlFor="dateOfBirth"
+                  className="mb-2 text-navy-dark font-medium"
+                >
+                  Date of Birth <span className="text-deep-wine">*</span>
+                </label>
+
+                <input
+                  id="dateOfBirth"
+                  type="date"
+                  name="dateOfBirth"
+                  value={formData.dateOfBirth}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold outline-none"
+                />
+            </div>
 
               <input
                 name="stateOfOrigin"
