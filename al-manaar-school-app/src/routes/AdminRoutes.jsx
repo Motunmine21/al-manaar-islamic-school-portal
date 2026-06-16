@@ -1,43 +1,21 @@
 import { Routes, Route } from "react-router-dom";
-import AdminLogin from "../admin/AdminLogin";
-import AdminDashboard from "../admin/AdminDashboard";
-import ManageAdmissions from "../admin/ManageAdmissions";
-import ManageAnnouncements from "../admin/ManageAnnouncements";
-import AdminLayout from "../components/AdminLayout";
+
+import Login from "../admin/Login";
+import Dashboard from "../admin/Dashboard";
+import Announcements from "../admin/Announcements";
+import Admissions from "../admin/Admissions";
+import Messages from "../admin/Messages";
+import Settings from "../admin/Settings";
 
 function AdminRoutes() {
   return (
     <Routes>
-      {/* LOGIN (no sidebar) */}
-      <Route path="login" element={<AdminLogin />} />
-
-      {/* ALL OTHER ADMIN PAGES */}
-      <Route
-        path="dashboard"
-        element={
-          <AdminLayout>
-            <AdminDashboard />
-          </AdminLayout>
-        }
-      />
-
-      <Route
-        path="admissions"
-        element={
-          <AdminLayout>
-            <ManageAdmissions />
-          </AdminLayout>
-        }
-      />
-
-      <Route
-        path="announcements"
-        element={
-          <AdminLayout>
-            <ManageAnnouncements />
-          </AdminLayout>
-        }
-      />
+      <Route path="/login" element={<Login />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/announcements" element={<Announcements />} />
+      <Route path="/admissions" element={<Admissions />} />
+      <Route path="/messages" element={<Messages />} />
+      <Route path="/settings" element={<Settings />} />
     </Routes>
   );
 }
