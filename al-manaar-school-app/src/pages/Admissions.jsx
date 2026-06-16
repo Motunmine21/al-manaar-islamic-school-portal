@@ -5,6 +5,7 @@ import { FaFacebook } from "react-icons/fa";
 import schoolLogo from "../assets/schoolLogo.png";
 import { Link } from "react-router-dom";
 
+
 const Admissions = () => {
   const [formData, setFormData] = useState({
     fullName: "",
