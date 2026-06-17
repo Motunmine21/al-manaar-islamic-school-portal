@@ -2,12 +2,16 @@ import AdminSidebar from "./AdminSidebar";
 
 export default function AdminLayout({ children }) {
   return (
-    <div className="flex">
+    <div className="flex min-h-screen bg-gray-100">
+
+      {/* ✅ ONLY ONE SIDEBAR */}
       <AdminSidebar />
 
-      <div className="flex-1 p-6 bg-gray-100 min-h-screen">
+      {/* MAIN CONTENT */}
+      <div className="flex-1 p-6">
         {children}
       </div>
+
     </div>
   );
 }
