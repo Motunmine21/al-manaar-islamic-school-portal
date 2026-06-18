@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 
-export default function ProtectedRoute({ children }) {
+ function ProtectedRoute({ children }) {
   const isLoggedIn = localStorage.getItem("adminAuth");
 
   if (!isLoggedIn) {
@@ -9,3 +9,4 @@ export default function ProtectedRoute({ children }) {
 
   return children;
 }
+export default ProtectedRoute;
