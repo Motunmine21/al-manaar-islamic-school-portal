@@ -10,12 +10,12 @@ import Settings from "../admin/Settings";
 function AdminRoutes() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/announcements" element={<Announcements />} />
-      <Route path="/admissions" element={<Admissions />} />
-      <Route path="/messages" element={<Messages />} />
-      <Route path="/settings" element={<Settings />} />
+      <Route path="login" element={<Login />} />
+      <Route path="dashboard" element={<Dashboard />} />
+      <Route path="announcements" element={<Announcements />} />
+      <Route path="admissions" element={<Admissions />} />
+      <Route path="messages" element={<Messages />} />
+      <Route path="settings" element={<Settings />} />
     </Routes>
   );
 }
