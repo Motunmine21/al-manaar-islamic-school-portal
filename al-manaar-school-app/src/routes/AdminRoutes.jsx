@@ -7,15 +7,61 @@ import Admissions from "../admin/Admissions";
 import Messages from "../admin/Messages";
 import Settings from "../admin/Settings";
 
+import ProtectedRoute from "../components/ProtectedRoute";
+
 function AdminRoutes() {
   return (
     <Routes>
+
+      {/* PUBLIC ADMIN LOGIN */}
       <Route path="login" element={<Login />} />
-      <Route path="dashboard" element={<Dashboard />} />
-      <Route path="announcements" element={<Announcements />} />
-      <Route path="admissions" element={<Admissions />} />
-      <Route path="messages" element={<Messages />} />
-      <Route path="settings" element={<Settings />} />
+
+      {/* PROTECTED ADMIN AREA */}
+      <Route
+        path="dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="announcements"
+        element={
+          <ProtectedRoute>
+            <Announcements />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="admissions"
+        element={
+          <ProtectedRoute>
+            <Admissions />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="messages"
+        element={
+          <ProtectedRoute>
+            <Messages />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="settings"
+        element={
+          <ProtectedRoute>
+            <Settings />
+          </ProtectedRoute>
+        }
+      />
+
     </Routes>
   );
 }

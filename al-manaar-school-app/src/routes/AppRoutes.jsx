@@ -11,12 +11,15 @@ import Announcements from "../pages/Announcements";
 function AppRoutes() {
   return (
     <Routes>
+
+      {/* PUBLIC PAGES */}
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/admissions" element={<Admissions />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/academics" element={<Academics />} />
       <Route path="/announcements" element={<Announcements />} />
+
     </Routes>
   );
 }
