@@ -2,8 +2,8 @@ import { Routes, Route } from "react-router-dom";
 
 import Login from "../admin/Login";
 import Dashboard from "../admin/Dashboard";
-import Announcements from "../admin/Announcements";
-import Admissions from "../admin/Admissions";
+import Announcements from "../admin/ManageAnnouncements";
+import Admissions from "../admin/ManageAdmissions";
 import Messages from "../admin/Messages";
 import Settings from "../admin/Settings";
 
