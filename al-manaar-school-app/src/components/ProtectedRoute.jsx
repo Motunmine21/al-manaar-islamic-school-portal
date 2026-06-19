@@ -9,4 +9,4 @@ import { Navigate } from "react-router-dom";
 
   return children;
 }
-export default ProtectedRoute;
+  export default ProtectedRoute;
