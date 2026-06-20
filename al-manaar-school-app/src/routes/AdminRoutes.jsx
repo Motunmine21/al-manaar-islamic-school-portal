@@ -2,8 +2,8 @@ import { Routes, Route } from "react-router-dom";
 
 import Login from "../admin/Login";
 import Dashboard from "../admin/Dashboard";
-import Announcements from "../admin/ManageAnnouncements";
-import Admissions from "../admin/ManageAdmissions";
+import ManageAnnouncements from "../admin/ManageAnnouncements";
+import ManageAdmissions from "../admin/ManageAdmissions";
 import Messages from "../admin/Messages";
 import Settings from "../admin/Settings";
 
@@ -27,19 +27,19 @@ function AdminRoutes() {
       />
 
       <Route
-        path="announcements"
+        path="manageannouncements"
         element={
           <ProtectedRoute>
-            <Announcements />
+            <ManageAnnouncements />
           </ProtectedRoute>
         }
       />
 
       <Route
-        path="admissions"
+        path="manageadmissions"
         element={
           <ProtectedRoute>
-            <Admissions />
+            <ManageAdmissions />
           </ProtectedRoute>
         }
       />
