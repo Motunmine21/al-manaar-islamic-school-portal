@@ -1,9 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth"; // 👈 ADD THIS
+import { getAuth } from "firebase/auth";
 
-// environment variables
+// Firebase config (env variables)
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -14,10 +14,16 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
+// 🔥 Initialize Firebase (ONLY ONCE)
 const app = initializeApp(firebaseConfig);
 
-// ✅ Analytics only in production (better practice)
+// 📦 Firestore
+export const db = getFirestore(app);
+
+// 🔐 Auth
+export const auth = getAuth(app);
+
+// 📊 Analytics (safe for production only)
 if (import.meta.env.PROD) {
   isSupported().then((yes) => {
     if (yes) {
@@ -26,8 +32,4 @@ if (import.meta.env.PROD) {
   });
 }
 
-// ✅ Firestore
-export const db = getFirestore(app);
-
-// ✅ Auth (NEW)
-export const auth = getAuth(app);
+export default app;
