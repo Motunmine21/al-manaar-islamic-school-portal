@@ -324,4 +324,4 @@ import { db } from "../services/firebase";
     </div>
   );
 }
-export default Results;
+  export default Results;
