@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import schoolLogo from "../assets/schoolLogo.png";
 
 function Login() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -17,8 +20,11 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // This will later connect to Firebase
-    console.log(formData);
+    // Temporary login
+    localStorage.setItem("adminAuth", "true");
+
+    // Redirect to dashboard
+    navigate("/admin/dashboard");
   };
 
   return (
@@ -83,6 +89,7 @@ function Login() {
           >
             Login
           </button>
+
         </form>
       </div>
     </div>
