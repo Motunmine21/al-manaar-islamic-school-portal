@@ -1,6 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function AdminSidebar({ isOpen, setIsOpen }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminAuth");
+    navigate("/admin/login");
+  };
+
   const links = [
     { name: "Dashboard", path: "/admin/dashboard" },
     { name: "Results", path: "/admin/results" },
@@ -28,15 +35,26 @@ function AdminSidebar({ isOpen, setIsOpen }) {
           transform transition-transform duration-300
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0
+          flex flex-col
         `}
       >
-        <div className="p-6 border-b border-white/20">
+        {/* Header */}
+        <div className="p-6 border-b border-white/20 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gold">
             Al-Manaar Admin
           </h1>
+
+          {/* Mobile Close Button */}
+          <button
+            onClick={() => setIsOpen(false)}
+            className="lg:hidden text-white text-2xl"
+          >
+            ✕
+          </button>
         </div>
 
-        <nav className="p-4 space-y-2">
+        {/* Navigation */}
+        <nav className="flex flex-col flex-1 p-4 space-y-2">
           {links.map((link) => (
             <NavLink
               key={link.name}
@@ -53,9 +71,31 @@ function AdminSidebar({ isOpen, setIsOpen }) {
               {link.name}
             </NavLink>
           ))}
+
+          {/* Logout */}
+          <div className="mt-auto pt-6">
+            <button
+              onClick={handleLogout}
+              className="
+                w-full
+                border
+                border-gold
+                text-gold
+                py-3
+                rounded-lg
+                font-semibold
+                transition
+                hover:bg-gold
+                hover:text-deep-wine
+              "
+            >
+              Logout
+            </button>
+          </div>
         </nav>
       </aside>
     </>
   );
 }
+
 export default AdminSidebar;
