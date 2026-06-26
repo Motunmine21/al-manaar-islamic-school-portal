@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
+import AdmissionStats from "../components/admissions/AdmissionStats";
+import AdmissionSearch from "../components/admissions/AdmissionSearch";
+import AdmissionTable from "../components/AdmissionTable";
+import AdmissionModal from "../components/AdmissionModal";
+import { createStudentFromAdmission } from "../utils/studentUtils";
 import {
   collection,
   getDocs,
   deleteDoc,
   updateDoc,
   doc,
+  
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
@@ -35,24 +41,48 @@ function ManageAdmissions() {
     fetchApplications();
   }, []);
 
-  const updateStatus = async (id, status) => {
-    try {
-      await updateDoc(
-        doc(db, "applications", id),
-        { status }
-      );
+  const updateStatus = async (application, status) => {
+  try {
+    await updateDoc(
+      doc(db, "applications", application.id),
+      {
+        status,
+      }
+    );
 
-      setApplications((prev) =>
-        prev.map((item) =>
-          item.id === id
-            ? { ...item, status }
-            : item
-        )
-      );
-    } catch (error) {
-      console.error(error);
+    if (status === "approved") {
+      const studentId =
+        await createStudentFromAdmission(application);
+
+      if (studentId) {
+        alert(
+          `Student admitted successfully!\nStudent ID: ${studentId}`
+        );
+      }
     }
-  };
+
+    setApplications((prev) =>
+      prev.map((item) =>
+        item.id === application.id
+          ? { ...item, status }
+          : item
+      )
+    );
+
+    if (
+      selectedApplication &&
+      selectedApplication.id === application.id
+    ) {
+      setSelectedApplication({
+        ...selectedApplication,
+        status,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong.");
+  }
+};
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
@@ -74,19 +104,19 @@ function ManageAdmissions() {
     }
   };
 
-  const filteredApplications =
-    applications.filter(
-      (item) =>
-        item.childName
-          ?.toLowerCase()
-          .includes(search.toLowerCase()) ||
-        item.fullName
-          ?.toLowerCase()
-          .includes(search.toLowerCase()) ||
-        item.classApplying
-          ?.toLowerCase()
-          .includes(search.toLowerCase())
-    );
+  const filteredApplications = applications.filter((item) => {
+  const keyword = search.toLowerCase();
+
+      return (
+        item.childName?.toLowerCase().includes(keyword) ||
+        item.fullName?.toLowerCase().includes(keyword) ||
+        item.classApplying?.toLowerCase().includes(keyword) ||
+        item.email?.toLowerCase().includes(keyword) ||
+        item.phone?.toLowerCase().includes(keyword) ||
+        item.gender?.toLowerCase().includes(keyword) ||
+        item.stateOfOrigin?.toLowerCase().includes(keyword)
+      );
+  });
 
   const totalApplications =
     applications.length;
@@ -117,311 +147,33 @@ function ManageAdmissions() {
       </h1>
 
       {/* STATISTICS */}
-      <div className="grid md:grid-cols-4 gap-4 mb-8">
+      <AdmissionStats
+        total={totalApplications}
+        approved={approvedApplications}
+        pending={pendingApplications}
+        rejected={rejectedApplications}
+      />
 
-        <div className="bg-white rounded-xl shadow p-5 border-t-4 border-gold">
-          <h3 className="text-gray-500">
-            Total Applications
-          </h3>
-
-          <p className="text-3xl font-bold text-navy-dark">
-            {totalApplications}
-          </p>
-        </div>
-
-        <div className="bg-white rounded-xl shadow p-5 border-t-4 border-gold">
-          <h3 className="text-gray-500">
-            Approved
-          </h3>
-
-          <p className="text-3xl font-bold text-green-600">
-            {approvedApplications}
-          </p>
-        </div>
-
-        <div className="bg-white rounded-xl shadow p-5 border-t-4 border-gold">
-          <h3 className="text-gray-500">
-            Pending
-          </h3>
-
-          <p className="text-3xl font-bold text-gold">
-            {pendingApplications}
-          </p>
-        </div>
-
-        <div className="bg-white rounded-xl shadow p-5 border-t-4 border-gold">
-          <h3 className="text-gray-500">
-            Rejected
-          </h3>
-
-          <p className="text-3xl font-bold text-deep-wine">
-            {rejectedApplications}
-          </p>
-        </div>
-
-      </div>
-
-      {/* SEARCH */}
-      <input
-        type="text"
-        placeholder="Search applicant..."
-        value={search}
-        onChange={(e) =>
-          setSearch(e.target.value)
-        }
-        className="
-          w-full
-          md:w-1/2
-          border
-          p-3
-          rounded-lg
-          mb-6
-          focus:outline-none
-          focus:ring-2
-          focus:ring-gold
-        "
+      <AdmissionSearch
+        search={search}
+        setSearch={setSearch}
       />
 
       {/* TABLE */}
-      <div className="overflow-x-auto bg-white rounded-xl shadow border-t-4 border-gold">
-        <table className="w-full">
-          <thead className="bg-navy-dark text-white">
-            <tr>
-              <th className="p-4 text-left">
-                Parent Name
-              </th>
-
-              <th className="p-4 text-left">
-                Student Name
-              </th>
-
-              <th className="p-4 text-left">
-                Class
-              </th>
-
-              <th className="p-4 text-left">
-                Gender
-              </th>
-
-              <th className="p-4 text-left">
-                Phone
-              </th>
-
-              <th className="p-4 text-left">
-                Status
-              </th>
-
-              <th className="p-4 text-left">
-                Actions
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {filteredApplications.length > 0 ? (
-              filteredApplications.map((app) => (
-                <tr
-                  key={app.id}
-                  className="border-b hover:bg-gold-light"
-                >
-                  <td className="p-4">
-                    {app.fullName}
-                  </td>
-
-                  <td className="p-4">
-                    {app.childName}
-                  </td>
-
-                  <td className="p-4">
-                    {app.classApplying}
-                  </td>
-
-                  <td className="p-4">
-                    {app.gender}
-                  </td>
-
-                  <td className="p-4">
-                    {app.phone}
-                  </td>
-
-                  <td className="p-4">
-                    {app.status ===
-                    "approved" ? (
-                      <span className="bg-gold-light text-navy-dark px-3 py-1 rounded-full text-sm font-medium">
-                        Approved
-                      </span>
-                    ) : app.status ===
-                      "rejected" ? (
-                      <span className="bg-deep-wine text-white px-3 py-1 rounded-full text-sm font-medium">
-                        Rejected
-                      </span>
-                    ) : (
-                      <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
-                        Pending
-                      </span>
-                    )}
-                  </td>
-
-                  <td className="p-4">
-                    <div className="flex flex-wrap gap-2">
-
-                      <button
-                        onClick={() =>
-                          setSelectedApplication(app)
-                        }
-                        className="bg-navy-dark text-white px-3 py-2 rounded-lg"
-                      >
-                        View
-                      </button>
-
-                      <button
-                        onClick={() =>
-                          updateStatus(
-                            app.id,
-                            "approved"
-                          )
-                        }
-                        className="bg-gold text-navy-dark px-3 py-2 rounded-lg font-medium"
-                      >
-                        Approve
-                      </button>
-
-                      <button
-                        onClick={() =>
-                          updateStatus(
-                            app.id,
-                            "rejected"
-                          )
-                        }
-                        className="bg-navy-blue text-white px-3 py-2 rounded-lg font-medium"
-                      >
-                        Reject
-                      </button>
-
-                      <button
-                        onClick={() =>
-                          handleDelete(app.id)
-                        }
-                        className="bg-deep-wine text-white px-3 py-2 rounded-lg font-medium"
-                      >
-                        Delete
-                      </button>
-
-                    </div>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan="7"
-                  className="text-center p-8 text-gray-500"
-                >
-                  No applications found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
+      <AdmissionTable
+          applications={filteredApplications}
+          onView={setSelectedApplication}
+          onApprove={(app) => updateStatus(app, "approved")}
+          onReject={(app) => updateStatus(app, "rejected")}
+          onDelete={handleDelete}
+      />
       {/* VIEW DETAILS MODAL */}
-      {selectedApplication && (
-        <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 p-4">
-
-          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-2xl">
-
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-navy-dark">
-                Application Details
-              </h2>
-
-              <button
-                onClick={() =>
-                  setSelectedApplication(null)
-                }
-                className="text-deep-wine text-2xl font-bold"
-              >
-                ×
-              </button>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-
-              <div>
-                <p className="font-semibold">
-                  Parent Name
-                </p>
-                <p>{selectedApplication.fullName}</p>
-              </div>
-
-              <div>
-                <p className="font-semibold">
-                  Email
-                </p>
-                <p>{selectedApplication.email}</p>
-              </div>
-
-              <div>
-                <p className="font-semibold">
-                  Phone
-                </p>
-                <p>{selectedApplication.phone}</p>
-              </div>
-
-              <div>
-                <p className="font-semibold">
-                  Student Name
-                </p>
-                <p>{selectedApplication.childName}</p>
-              </div>
-
-              <div>
-                <p className="font-semibold">
-                  Gender
-                </p>
-                <p>{selectedApplication.gender}</p>
-              </div>
-
-              <div>
-                <p className="font-semibold">
-                  Date of Birth
-                </p>
-                <p>{selectedApplication.dateOfBirth}</p>
-              </div>
-
-              <div>
-                <p className="font-semibold">
-                  State of Origin
-                </p>
-                <p>{selectedApplication.stateOfOrigin}</p>
-              </div>
-
-              <div>
-                <p className="font-semibold">
-                  Class Applying
-                </p>
-                <p>{selectedApplication.classApplying}</p>
-              </div>
-
-            </div>
-
-            <div className="mt-6 flex justify-end">
-              <button
-                onClick={() =>
-                  setSelectedApplication(null)
-                }
-                className="bg-deep-wine text-white px-5 py-2 rounded-lg"
-              >
-                Close
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-      )}
-
+      <AdmissionModal
+          application={selectedApplication}
+          onClose={() => setSelectedApplication(null)}
+          onApprove={(app) => updateStatus(app, "approved")}
+          onReject={(app) => updateStatus(app, "rejected")}
+        />
     </div>
   );
 }
