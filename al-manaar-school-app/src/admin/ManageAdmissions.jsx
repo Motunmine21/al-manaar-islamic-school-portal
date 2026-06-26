@@ -12,7 +12,7 @@ import {
   doc,
   
 } from "firebase/firestore";
-import { db } from "../firebase/firebase";
+import { db } from "../../firebase/firebase";
 
 function ManageAdmissions() {
   const [applications, setApplications] = useState([]);
