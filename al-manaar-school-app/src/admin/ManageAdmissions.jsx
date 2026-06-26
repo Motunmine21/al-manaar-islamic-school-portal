@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import AdmissionStats from "../components/admissions/AdmissionStats";
-import AdmissionSearch from "../components/admissions/AdmissionSearch";
-import AdmissionTable from "../components/AdmissionTable";
-import AdmissionModal from "../components/AdmissionModal";
-import { createStudentFromAdmission } from "../utils/studentUtils";
+import AdmissionStats from "../components/Admissions/AdmissionStats";
+import AdmissionSearch from "../components/Admissions/AdmissionSearch";
+import AdmissionTable from "../components/Admissions/AdmissionTable";
+import AdmissionModal from "../components/Admissions/AdmissionModal";
+import { createStudentFromAdmission } from "..componenets/utils/studentUtils";
 import {
   collection,
   getDocs,
