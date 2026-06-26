@@ -3,7 +3,7 @@ import AdmissionStats from "../components/Admissions/AdmissionStats";
 import AdmissionSearch from "../components/Admissions/AdmissionSearch";
 import AdmissionTable from "../components/Admissions/AdmissionTable";
 import AdmissionModal from "../components/Admissions/AdmissionModal";
-import { createStudentFromAdmission } from "..componenets/Utils/studentUtils";
+import { createStudentFromAdmission } from "..componenets/Utils/StudentUtils";
 import {
   collection,
   getDocs,
